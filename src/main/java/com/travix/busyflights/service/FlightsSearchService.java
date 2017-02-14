@@ -70,9 +70,9 @@ public class FlightsSearchService {
 
     private List<Flight> getToughJetFlights(SearchCriteria sc) {
         ToughJetSearchRequest request = toToughJetRequest(sc);
-        LOGGER.info("Sending request to " + SUPPLIER_TOUGH_JET + request);
+        LOGGER.debug("Sending request to " + SUPPLIER_TOUGH_JET + request);
         ToughJetFlightDto[] dtos = restTemplate.postForObject(toughJetSearchUrl, request, ToughJetFlightDto[].class);
-        LOGGER.info("Processing response from " + SUPPLIER_TOUGH_JET, dtos);
+        LOGGER.debug("Processing response from " + SUPPLIER_TOUGH_JET, dtos);
         return Arrays.stream(dtos).map(dto -> toFlight(dto)).collect(Collectors.toList());
     }
 
