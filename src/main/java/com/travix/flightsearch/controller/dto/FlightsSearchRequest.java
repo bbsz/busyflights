@@ -3,6 +3,7 @@ package com.travix.flightsearch.controller.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Future;
@@ -12,7 +13,7 @@ import java.util.Date;
 /**
  * Created by sergej on 13.2.2017.
  */
-public class CrazyAirSearchRequest {
+public class FlightsSearchRequest {
     @NotNull
     @Length(max = 3, min = 3, message = "Origin must be 3 letter IATA code")
     @JsonProperty(value = "origin", required = true)
@@ -24,20 +25,19 @@ public class CrazyAirSearchRequest {
     private String destination;
 
     @NotNull(message = "numberOfPassengers has to be specified.")
+    @Range(min = 1, max = 4, message = "numberOfPassengers not in valid range")
     @JsonProperty(value = "numberOfPassengers", required = true)
-    private Integer passengersCount;
+    private Integer numberOfPassengers;
 
     @NotNull
     @Future
-    @DateTimeFormat(pattern = "MM-dd-yyyy")
-    @JsonFormat(pattern = "MM-dd-yyyy")
+    @JsonFormat(pattern = "dd-MM-yyyy hh:mm:ss")
     @JsonProperty(value = "departureDate", required = true)
     private Date departureDate;
 
     @NotNull
     @Future
-    @DateTimeFormat(pattern = "MM-dd-yyyy")
-    @JsonFormat(pattern = "MM-dd-yyyy")
+    @JsonFormat(pattern = "dd-MM-yyyy hh:mm:ss")
     @JsonProperty(value = "returnDate", required = true)
     private Date returnDate;
 
@@ -57,12 +57,12 @@ public class CrazyAirSearchRequest {
         this.destination = destination;
     }
 
-    public Integer getPassengersCount() {
-        return passengersCount;
+    public Integer getNumberOfPassengers() {
+        return numberOfPassengers;
     }
 
-    public void setPassengersCount(Integer passengersCount) {
-        this.passengersCount = passengersCount;
+    public void setNumberOfPassengers(Integer passengersCount) {
+        this.numberOfPassengers = passengersCount;
     }
 
     public Date getDepartureDate() {

@@ -1,7 +1,7 @@
 package com.travix.flightsearch.controller;
 
 import com.travix.flightsearch.controller.dto.CrazyAirFlightDto;
-import com.travix.flightsearch.controller.dto.CrazyAirSearchRequest;
+import com.travix.flightsearch.controller.dto.FlightsSearchRequest;
 import com.travix.flightsearch.domain.Flight;
 import com.travix.flightsearch.service.SearchCriteria;
 import com.travix.flightsearch.service.CrazyAirSearchService;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * Created by sergej on 13.2.2017.
  */
 @RestController
-@RequestMapping("flightsSearch/")
+@RequestMapping("busyFlights/")
 public class FlightsSearchController {
 
     private CrazyAirSearchService crazyAirSearch;
@@ -28,15 +28,15 @@ public class FlightsSearchController {
         this.crazyAirSearch = crazyAirSearch;
     }
 
-    @RequestMapping(value = "crayzAir", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<CrazyAirFlightDto> searchCrazyAir(@Valid @RequestBody CrazyAirSearchRequest request) {
+    @RequestMapping(value = "search", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<CrazyAirFlightDto> search(@Valid @RequestBody FlightsSearchRequest request) {
         SearchCriteria criteria = toSearchCriteria(request);
         List<Flight> flights = crazyAirSearch.getFlights(criteria);
         List<CrazyAirFlightDto> dtos = toSearchResponse(flights);
         return dtos;
     }
 
-    private SearchCriteria toSearchCriteria(CrazyAirSearchRequest request) {
+    private SearchCriteria toSearchCriteria(FlightsSearchRequest request) {
         SearchCriteria criteria = new SearchCriteria();
         criteria.setDepartureDate(request.getDepartureDate());
         criteria.setReturnDate(request.getReturnDate());

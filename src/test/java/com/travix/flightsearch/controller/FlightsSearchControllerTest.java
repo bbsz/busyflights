@@ -2,7 +2,7 @@ package com.travix.flightsearch.controller;
 
 import com.google.common.collect.Lists;
 import com.travix.flightsearch.controller.dto.CrazyAirFlightDto;
-import com.travix.flightsearch.controller.dto.CrazyAirSearchRequest;
+import com.travix.flightsearch.controller.dto.FlightsSearchRequest;
 import com.travix.flightsearch.domain.Flight;
 import com.travix.flightsearch.service.CrazyAirSearchService;
 import com.travix.flightsearch.service.SearchCriteria;
@@ -28,7 +28,7 @@ public class FlightsSearchControllerTest {
     @Mock
     private CrazyAirSearchService searchService;
     @Mock
-    private CrazyAirSearchRequest request;
+    private FlightsSearchRequest request;
     private FlightsSearchController controller;
     private Flight flight;
     private List<CrazyAirFlightDto> dtos;
@@ -51,7 +51,7 @@ public class FlightsSearchControllerTest {
     }
 
     private void whenICallSearchCrazyAir() {
-        dtos = controller.searchCrazyAir(request);
+        dtos = controller.search(request);
     }
 
     private void dtosAreReturned(){
