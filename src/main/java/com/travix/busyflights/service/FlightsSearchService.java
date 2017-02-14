@@ -4,8 +4,11 @@ import com.google.common.annotations.VisibleForTesting;
 import com.travix.busyflights.domain.Flight;
 import com.travix.busyflights.service.rest.dto.CrazyAirFlightDto;
 import com.travix.busyflights.service.rest.dto.CrazyAirSearchRequest;
+import com.travix.busyflights.service.rest.dto.ToughJetFlightDto;
+import com.travix.busyflights.service.rest.dto.ToughJetSearchRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -28,8 +31,8 @@ public class FlightsSearchService {
     private String toughJetSearchUrl;
 
     @Autowired
-    public FlightsSearchService(@Qualifier("crazyAirSearchUrl") String crazyAirSearchUrl,
-                         @Qualifier("toughJetSearchUrl") String toughJetSearchUrl) {
+    public FlightsSearchService(@Value("${crazyAirSearchUrl}") String crazyAirSearchUrl,
+                                @Value("${toughJetSearchUrl}") String toughJetSearchUrl) {
         this.crazyAirSearchUrl = crazyAirSearchUrl;
         this.toughJetSearchUrl = toughJetSearchUrl;
         this.restTemplate = new RestTemplate();
@@ -37,8 +40,8 @@ public class FlightsSearchService {
 
     @VisibleForTesting
     FlightsSearchService(RestTemplate restTemplate,
-                                String crazyAirSearchUrl,
-                                String toughJetSearchUrl) {
+                         String crazyAirSearchUrl,
+                         String toughJetSearchUrl) {
         this.restTemplate = restTemplate;
         this.crazyAirSearchUrl = crazyAirSearchUrl;
         this.toughJetSearchUrl = toughJetSearchUrl;
@@ -46,14 +49,23 @@ public class FlightsSearchService {
 
     public List<Flight> getFlights(SearchCriteria sc) {
         List<Flight> crazyAirFlights = getCrazyAirFlights(sc);
+        List<Flight> toughJetFlights = getToughJetFlights(sc);
+
         List<Flight> flights = new ArrayList<>();
         flights.addAll(crazyAirFlights);
+        flights.addAll(toughJetFlights);
         return flights;
     }
 
     private List<Flight> getCrazyAirFlights(SearchCriteria sc) {
         CrazyAirSearchRequest request = toCrazyAirRequest(sc);
         CrazyAirFlightDto[] dtos = restTemplate.postForObject(crazyAirSearchUrl, request, CrazyAirFlightDto[].class);
+        return Arrays.stream(dtos).map(dto -> toFlight(dto)).collect(Collectors.toList());
+    }
+
+    private List<Flight> getToughJetFlights(SearchCriteria sc) {
+        ToughJetSearchRequest request = toToughJetRequest(sc);
+        ToughJetFlightDto[] dtos = restTemplate.postForObject(toughJetSearchUrl, request, ToughJetFlightDto[].class);
         return Arrays.stream(dtos).map(dto -> toFlight(dto)).collect(Collectors.toList());
     }
 
@@ -68,6 +80,16 @@ public class FlightsSearchService {
         return request;
     }
 
+    private ToughJetSearchRequest toToughJetRequest(SearchCriteria sc) {
+        ToughJetSearchRequest request = new ToughJetSearchRequest();
+        request.setOrigin(sc.getOrigin());
+        request.setDestination(sc.getDestination());
+        request.setDepartureDate(sc.getDepartureDate());
+        request.setReturnDate(sc.getReturnDate());
+        request.setNumberOfPassengers(sc.getNumberOfPassengers());
+        return request;
+    }
+
     private Flight toFlight(CrazyAirFlightDto dto) {
         Flight flight = new Flight();
         flight.setAirLine(dto.getAirLine());
@@ -77,6 +99,18 @@ public class FlightsSearchService {
         flight.setDestinationAirportCode(dto.getDestinationAirportCode());
         flight.setFare(dto.getPrice());
         flight.setSupplier(SUPPLIER_CRAZY_AIR);
+        return flight;
+    }
+
+    private Flight toFlight(ToughJetFlightDto dto) {
+        Flight flight = new Flight();
+        flight.setAirLine(dto.getAirLine());
+        flight.setDepartureDate(dto.getDepartureDate());
+        flight.setArrivalDate(dto.getReturnDate());
+        flight.setDepartureAirportCode(dto.getDepartureAirportCode());
+        flight.setDestinationAirportCode(dto.getDestinationAirportCode());
+        flight.setFare(dto.getPrice());
+        flight.setSupplier(SUPPLIER_TOUGH_JET);
         return flight;
     }
 

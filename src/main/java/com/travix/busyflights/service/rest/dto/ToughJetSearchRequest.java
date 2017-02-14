@@ -17,7 +17,7 @@ public class ToughJetSearchRequest {
     private String destination;
 
     @JsonProperty(value = "numberOfAdults", required = true)
-    private Integer passengersCount;
+    private Integer numberOfPassengers;
 
     @JsonProperty(value = "departureDay", required = true)
     private Integer departureDay;
@@ -56,12 +56,12 @@ public class ToughJetSearchRequest {
         this.destination = destination;
     }
 
-    public Integer getPassengersCount() {
-        return passengersCount;
+    public Integer getNumberOfPassengers() {
+        return numberOfPassengers;
     }
 
-    public void setPassengersCount(Integer passengersCount) {
-        this.passengersCount = passengersCount;
+    public void setNumberOfPassengers(Integer passengersCount) {
+        this.numberOfPassengers = passengersCount;
     }
 
     public Integer getDepartureDay() {

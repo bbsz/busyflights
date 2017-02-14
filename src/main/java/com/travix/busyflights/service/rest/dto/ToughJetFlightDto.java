@@ -112,6 +112,10 @@ public class ToughJetFlightDto {
         return toDate(returnYear, returnMonth, returnDay);
     }
 
+    public Double getPrice(){
+        return getBasePrice() + getTax() - getDiscount();
+    }
+
     private Date toDate(int year, int month, int day) {
         Calendar cal = Calendar.getInstance();
         cal.clear();
