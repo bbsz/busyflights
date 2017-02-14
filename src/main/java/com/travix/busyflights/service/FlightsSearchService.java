@@ -1,5 +1,6 @@
 package com.travix.busyflights.service;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.travix.busyflights.domain.Flight;
 import com.travix.busyflights.service.rest.dto.CrazyAirFlightDto;
 import com.travix.busyflights.service.rest.dto.CrazyAirSearchRequest;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,9 +28,17 @@ public class FlightsSearchService {
     private String toughJetSearchUrl;
 
     @Autowired
-    public FlightsSearchService(RestTemplate restTemplate,
-                                @Qualifier("crazyAirSearchUrl") String crazyAirSearchUrl,
-                                @Qualifier("toughJetSearchUrl") String toughJetSearchUrl) {
+    public FlightsSearchService(@Qualifier("crazyAirSearchUrl") String crazyAirSearchUrl,
+                         @Qualifier("toughJetSearchUrl") String toughJetSearchUrl) {
+        this.crazyAirSearchUrl = crazyAirSearchUrl;
+        this.toughJetSearchUrl = toughJetSearchUrl;
+        this.restTemplate = new RestTemplate();
+    }
+
+    @VisibleForTesting
+    FlightsSearchService(RestTemplate restTemplate,
+                                String crazyAirSearchUrl,
+                                String toughJetSearchUrl) {
         this.restTemplate = restTemplate;
         this.crazyAirSearchUrl = crazyAirSearchUrl;
         this.toughJetSearchUrl = toughJetSearchUrl;
@@ -43,8 +53,8 @@ public class FlightsSearchService {
 
     private List<Flight> getCrazyAirFlights(SearchCriteria sc) {
         CrazyAirSearchRequest request = toCrazyAirRequest(sc);
-        List<CrazyAirFlightDto> dtos = restTemplate.postForObject(crazyAirSearchUrl, request, List.class);
-        return dtos.stream().map(dto -> toFlight(dto)).collect(Collectors.toList());
+        CrazyAirFlightDto[] dtos = restTemplate.postForObject(crazyAirSearchUrl, request, CrazyAirFlightDto[].class);
+        return Arrays.stream(dtos).map(dto -> toFlight(dto)).collect(Collectors.toList());
     }
 
     private CrazyAirSearchRequest toCrazyAirRequest(SearchCriteria sc) {

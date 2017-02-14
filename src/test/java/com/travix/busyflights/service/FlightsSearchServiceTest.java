@@ -28,10 +28,9 @@ public class FlightsSearchServiceTest {
     private static final String ORIGIN = "LDN";
     private static final String DESTINATION = "BRB";
     private static final int NUMBER_OF_PASSENGERS = 4;
-    private static final String SEARCH_URL_CRAZY_AIR = "localhost:8080/flightsSearch/crayzAir";
-    private static final String SEARCH_URL_TOUGH_JET = "localhost:8080/flightsSearch/toughJet";
+    private static final String SEARCH_URL_CRAZY_AIR = "http://localhost:8080/flightsSearch/crayzAir";
+    private static final String SEARCH_URL_TOUGH_JET = "http://localhost:8080/flightsSearch/toughJet";
 
-    @Autowired
     private RestTemplate restTemplate;
     @Mock
     private Flight flight_ldn2Mlb;
@@ -43,6 +42,7 @@ public class FlightsSearchServiceTest {
 
     @Before
     public void setUp() {
+        restTemplate = new RestTemplate();
         searchService = new FlightsSearchService(restTemplate, SEARCH_URL_CRAZY_AIR, SEARCH_URL_TOUGH_JET);
     }
 
@@ -73,6 +73,7 @@ public class FlightsSearchServiceTest {
         searchCriteria.setDestination(DESTINATION);
         searchCriteria.setDepartureDate(toDate(2017, 3, 14));
         searchCriteria.setReturnDate(toDate(2017, 3, 21));
+        searchCriteria.setNumberOfPassengers(NUMBER_OF_PASSENGERS);
     }
 
     private void whenICallGetFlights() {
