@@ -44,7 +44,6 @@ public class FlightsSearchService {
     private List<Flight> getCrazyAirFlights(SearchCriteria sc) {
         CrazyAirSearchRequest request = toCrazyAirRequest(sc);
         List<CrazyAirFlightDto> dtos = restTemplate.postForObject(crazyAirSearchUrl, request, List.class);
-
         return dtos.stream().map(dto -> toFlight(dto)).collect(Collectors.toList());
     }
 

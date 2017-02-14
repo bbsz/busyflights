@@ -19,11 +19,9 @@ package com.travix.busyflights.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.Date;
 
-@Entity
 public class Flight implements Serializable {
 
     @JsonProperty(value = "airline", required = true)

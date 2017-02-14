@@ -7,8 +7,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -19,15 +22,16 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by sergej on 13.2.2017.
  */
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)
 public class FlightsSearchServiceTest {
 
     private static final String ORIGIN = "LDN";
-    private static final String DESTINATION = "MLB";
+    private static final String DESTINATION = "BRB";
+    private static final int NUMBER_OF_PASSENGERS = 4;
     private static final String SEARCH_URL_CRAZY_AIR = "localhost:8080/flightsSearch/crayzAir";
     private static final String SEARCH_URL_TOUGH_JET = "localhost:8080/flightsSearch/toughJet";
 
-    @Mock
+    @Autowired
     private RestTemplate restTemplate;
     @Mock
     private Flight flight_ldn2Mlb;
@@ -44,11 +48,17 @@ public class FlightsSearchServiceTest {
 
     @Test
     public void getFlights() {
-        givenARestTemplate();
         givenASearchCriteria();
         whenICallGetFlights();
         flightsAreReturned();
     }
+//    @Test
+//    public void getFlights() {
+//        givenARestTemplate();
+//        givenASearchCriteria();
+//        whenICallGetFlights();
+//        flightsAreReturned();
+//    }
 
     private void givenARestTemplate() {
         List<Flight> orig2dest = Lists.newArrayList(flight_ldn2Mlb);
@@ -61,18 +71,25 @@ public class FlightsSearchServiceTest {
         searchCriteria = new SearchCriteria();
         searchCriteria.setOrigin(ORIGIN);
         searchCriteria.setDestination(DESTINATION);
-        searchCriteria.setDepartureDate(new Date());
-        searchCriteria.setReturnDate(new Date());
+        searchCriteria.setDepartureDate(toDate(2017, 3, 14));
+        searchCriteria.setReturnDate(toDate(2017, 3, 21));
     }
 
-    private void whenICallGetFlights(){
+    private void whenICallGetFlights() {
         flights = searchService.getFlights(searchCriteria);
     }
 
-    private void flightsAreReturned(){
+    private void flightsAreReturned() {
         assertThat(flights.size(), is(2));
-        assertTrue(flights.contains(flight_ldn2Mlb));
-        assertTrue(flights.contains(flight_mlb2Ldn));
+//        assertTrue(flights.contains(flight_ldn2Mlb));
+//        assertTrue(flights.contains(flight_mlb2Ldn));
+    }
+
+    private Date toDate(int year, int month, int day) {
+        Calendar cal = Calendar.getInstance();
+        cal.clear();
+        cal.set(year, month - 1, day);
+        return cal.getTime();
     }
 
 }
