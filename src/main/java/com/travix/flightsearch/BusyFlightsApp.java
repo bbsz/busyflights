@@ -20,10 +20,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FlightsSearchApp {
+public class BusyFlightsApp {
 
 	public static void main(String[] args) throws Exception {
-		SpringApplication.run(FlightsSearchApp.class, args);
+		SpringApplication.run(BusyFlightsApp.class, args);
 	}
 
 }

@@ -16,6 +16,9 @@
 
 package com.travix.flightsearch.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -30,69 +33,50 @@ import java.util.Date;
 @Entity
 public class Flight implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue
-    private Long id;
-
-    @Column(nullable = false)
-    @Enumerated(EnumType.ORDINAL)
-    private SearchProvider provider;
-
-    @Column(nullable = false)
-    @Enumerated(EnumType.ORDINAL)
-    private CabinClass cabinClass;
-
-    @Column(nullable = false)
-    private String origin;
-
-    @Column(nullable = false)
-    private String destination;
-
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date departureDate;
-
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date arrivalDate;
-
-    @Column(nullable = false)
-    private int passengersCount;
-
-    @Column(nullable = false)
+    @JsonProperty(value = "airline", required = true)
     private String airLine;
 
-    @Column(nullable = false)
-    private double basePrice;
+    @JsonProperty(value = "supplier", required = true)
+    private String supplier;
 
-    @Column(nullable = false)
-    private double tax;
+    @JsonProperty(value = "fare", required = true)
+    private String fare;
 
-    @Column(nullable = false)
-    private double discount;
+    @JsonProperty(value = "departureAirportCode", required = true)
+    private String departureAirportCode;
 
-    @Column(nullable = false)
-    private String currency;
+    @JsonProperty(value = "destinationAirportCode", required = true)
+    private String destinationAirportCode;
+
+    @JsonFormat(pattern =  "dd-MM-yyyy hh:mm:ss")
+    @JsonProperty(value = "departureDate", required = true)
+    private Date departureDate;
+
+    @JsonFormat(pattern =  "dd-MM-yyyy hh:mm:ss")
+    @JsonProperty(value = "arrivalDate", required = true)
+    private Date arrivalDate;
 
     public Flight() {
     }
 
-    public SearchProvider getProvider() {
-        return provider;
+    public String getAirLine() {
+        return airLine;
     }
 
-    public CabinClass getCabinClass() {
-        return cabinClass;
+    public String getSupplier() {
+        return supplier;
     }
 
-    public String getOrigin() {
-        return origin;
+    public String getFare() {
+        return fare;
     }
 
-    public String getDestination() {
-        return destination;
+    public String getDepartureAirportCode() {
+        return departureAirportCode;
+    }
+
+    public String getDestinationAirportCode() {
+        return destinationAirportCode;
     }
 
     public Date getDepartureDate() {
@@ -101,77 +85,5 @@ public class Flight implements Serializable {
 
     public Date getArrivalDate() {
         return arrivalDate;
-    }
-
-    public int getPassengersCount() {
-        return passengersCount;
-    }
-
-    public String getAirLine() {
-        return airLine;
-    }
-
-    public double getBasePrice() {
-        return basePrice;
-    }
-
-    public double getTax() {
-        return tax;
-    }
-
-    public double getDiscount() {
-        return discount;
-    }
-
-    public double getPrice() {
-        return getBasePrice() + getTax() - getDiscount();
-    }
-
-    public void setProvider(SearchProvider provider) {
-        this.provider = provider;
-    }
-
-    public void setCabinClass(CabinClass cabinClass) {
-        this.cabinClass = cabinClass;
-    }
-
-    public void setOrigin(String origin) {
-        this.origin = origin;
-    }
-
-    public void setDestination(String destination) {
-        this.destination = destination;
-    }
-
-    public void setDepartureDate(Date departureDate) {
-        this.departureDate = departureDate;
-    }
-
-    public void setArrivalDate(Date arrivalDate) {
-        this.arrivalDate = arrivalDate;
-    }
-
-    public void setPassengersCount(int passengersCount) {
-        this.passengersCount = passengersCount;
-    }
-
-    public void setAirLine(String airLine) {
-        this.airLine = airLine;
-    }
-
-    public void setBasePrice(double basePrice) {
-        this.basePrice = basePrice;
-    }
-
-    public void setTax(double tax) {
-        this.tax = tax;
-    }
-
-    public void setDiscount(double discount) {
-        this.discount = discount;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
     }
 }
