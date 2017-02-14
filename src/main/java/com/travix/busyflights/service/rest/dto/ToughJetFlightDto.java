@@ -122,4 +122,24 @@ public class ToughJetFlightDto {
         cal.set(year, month - 1, day);
         return cal.getTime();
     }
+
+    @Override
+    public String toString() {
+        return "ToughJetFlightDto{" +
+                "airLine='" + airLine + '\'' +
+                ", basePrice=" + basePrice +
+                ", tax=" + tax +
+                ", discount=" + discount +
+                ", departureAirportCode='" + departureAirportCode + '\'' +
+                ", destinationAirportCode='" + destinationAirportCode + '\'' +
+                ", departureDay=" + departureDay +
+                ", departureMonth=" + departureMonth +
+                ", departureYear=" + departureYear +
+                ", returnDay=" + returnDay +
+                ", returnMonth=" + returnMonth +
+                ", returnYear=" + returnYear +
+                ", departureDate=" + departureDate +
+                ", returnDate=" + returnDate +
+                '}';
+    }
 }

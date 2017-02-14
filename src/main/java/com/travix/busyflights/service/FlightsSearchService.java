@@ -62,7 +62,7 @@ public class FlightsSearchService {
 
     private List<Flight> getCrazyAirFlights(SearchCriteria sc) {
         CrazyAirSearchRequest request = toCrazyAirRequest(sc);
-        LOGGER.debug("Sending request to " + SUPPLIER_CRAZY_AIR, request);
+        LOGGER.debug("Sending request to " + SUPPLIER_CRAZY_AIR + request);
         CrazyAirFlightDto[] dtos = restTemplate.postForObject(crazyAirSearchUrl, request, CrazyAirFlightDto[].class);
         LOGGER.debug("Processing response from " + SUPPLIER_CRAZY_AIR, dtos);
         return Arrays.stream(dtos).map(dto -> toFlight(dto)).collect(Collectors.toList());
@@ -70,7 +70,7 @@ public class FlightsSearchService {
 
     private List<Flight> getToughJetFlights(SearchCriteria sc) {
         ToughJetSearchRequest request = toToughJetRequest(sc);
-        LOGGER.info("Sending request to " + SUPPLIER_TOUGH_JET, request);
+        LOGGER.info("Sending request to " + SUPPLIER_TOUGH_JET + request);
         ToughJetFlightDto[] dtos = restTemplate.postForObject(toughJetSearchUrl, request, ToughJetFlightDto[].class);
         LOGGER.info("Processing response from " + SUPPLIER_TOUGH_JET, dtos);
         return Arrays.stream(dtos).map(dto -> toFlight(dto)).collect(Collectors.toList());

@@ -141,4 +141,19 @@ public class ToughJetSearchRequest {
         cal.setTime(date);
         return cal.get(Calendar.DAY_OF_MONTH);
     }
+
+    @Override
+    public String toString() {
+        return "ToughJetSearchRequest{" +
+                "origin='" + origin + '\'' +
+                ", destination='" + destination + '\'' +
+                ", numberOfPassengers=" + numberOfPassengers +
+                ", departureDay=" + departureDay +
+                ", departureMonth=" + departureMonth +
+                ", departureYear=" + departureYear +
+                ", returnDay=" + returnDay +
+                ", returnMonth=" + returnMonth +
+                ", returnYear=" + returnYear +
+                '}';
+    }
 }
