@@ -63,4 +63,17 @@ public class CrazyAirFlightDto {
     public Date getArrivalDate() {
         return arrivalDate;
     }
+
+    @Override
+    public String toString() {
+        return "CrazyAirFlightDto{" +
+                "airLine='" + airLine + '\'' +
+                ", price=" + price +
+                ", cabinClass='" + cabinClass + '\'' +
+                ", departureAirportCode='" + departureAirportCode + '\'' +
+                ", destinationAirportCode='" + destinationAirportCode + '\'' +
+                ", departureDate=" + departureDate +
+                ", arrivalDate=" + arrivalDate +
+                '}';
+    }
 }

@@ -6,6 +6,8 @@ import com.travix.busyflights.service.rest.dto.CrazyAirFlightDto;
 import com.travix.busyflights.service.rest.dto.CrazyAirSearchRequest;
 import com.travix.busyflights.service.rest.dto.ToughJetFlightDto;
 import com.travix.busyflights.service.rest.dto.ToughJetSearchRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,6 +27,7 @@ public class FlightsSearchService {
 
     private static final String SUPPLIER_CRAZY_AIR = "CrazyAir";
     private static final String SUPPLIER_TOUGH_JET = "ToughJet";
+    private static final Logger LOGGER = LoggerFactory.getLogger(FlightsSearchService.class);
 
     private RestTemplate restTemplate;
     private String crazyAirSearchUrl;
@@ -59,13 +62,17 @@ public class FlightsSearchService {
 
     private List<Flight> getCrazyAirFlights(SearchCriteria sc) {
         CrazyAirSearchRequest request = toCrazyAirRequest(sc);
+        LOGGER.debug("Sending request to " + SUPPLIER_CRAZY_AIR, request);
         CrazyAirFlightDto[] dtos = restTemplate.postForObject(crazyAirSearchUrl, request, CrazyAirFlightDto[].class);
+        LOGGER.debug("Processing response from " + SUPPLIER_CRAZY_AIR, dtos);
         return Arrays.stream(dtos).map(dto -> toFlight(dto)).collect(Collectors.toList());
     }
 
     private List<Flight> getToughJetFlights(SearchCriteria sc) {
         ToughJetSearchRequest request = toToughJetRequest(sc);
+        LOGGER.info("Sending request to " + SUPPLIER_TOUGH_JET, request);
         ToughJetFlightDto[] dtos = restTemplate.postForObject(toughJetSearchUrl, request, ToughJetFlightDto[].class);
+        LOGGER.info("Processing response from " + SUPPLIER_TOUGH_JET, dtos);
         return Arrays.stream(dtos).map(dto -> toFlight(dto)).collect(Collectors.toList());
     }
 

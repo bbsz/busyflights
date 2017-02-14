@@ -66,4 +66,15 @@ public class CrazyAirSearchRequest {
     public void setReturnDate(Date returnDate) {
         this.returnDate = returnDate;
     }
+
+    @Override
+    public String toString() {
+        return "CrazyAirSearchRequest{" +
+                "origin='" + origin + '\'' +
+                ", destination='" + destination + '\'' +
+                ", numberOfPassengers=" + numberOfPassengers +
+                ", departureDate=" + departureDate +
+                ", returnDate=" + returnDate +
+                '}';
+    }
 }
