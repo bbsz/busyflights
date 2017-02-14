@@ -1,4 +1,4 @@
-package com.travix.flightsearch.service;
+package com.travix.busyflights.service;
 
 import java.util.Date;
 

@@ -1,11 +1,10 @@
-package com.travix.flightsearch.controller;
+package com.travix.busyflights.controller;
 
 import com.google.common.collect.Lists;
-import com.travix.flightsearch.service.rest.dto.CrazyAirFlightDto;
-import com.travix.flightsearch.controller.dto.FlightsSearchRequest;
-import com.travix.flightsearch.domain.Flight;
-import com.travix.flightsearch.service.FlightsSearchService;
-import com.travix.flightsearch.service.SearchCriteria;
+import com.travix.busyflights.controller.dto.FlightsSearchRequest;
+import com.travix.busyflights.domain.Flight;
+import com.travix.busyflights.service.FlightsSearchService;
+import com.travix.busyflights.service.SearchCriteria;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

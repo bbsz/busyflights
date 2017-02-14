@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.travix.flightsearch;
+package com.travix.busyflights;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

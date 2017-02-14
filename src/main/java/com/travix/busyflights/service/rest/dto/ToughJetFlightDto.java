@@ -1,4 +1,4 @@
-package com.travix.flightsearch.service.rest.dto;
+package com.travix.busyflights.service.rest.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;

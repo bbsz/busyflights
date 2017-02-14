@@ -1,9 +1,9 @@
-package com.travix.flightsearch.controller;
+package com.travix.busyflights.controller;
 
-import com.travix.flightsearch.controller.dto.FlightsSearchRequest;
-import com.travix.flightsearch.domain.Flight;
-import com.travix.flightsearch.service.SearchCriteria;
-import com.travix.flightsearch.service.FlightsSearchService;
+import com.travix.busyflights.controller.dto.FlightsSearchRequest;
+import com.travix.busyflights.domain.Flight;
+import com.travix.busyflights.service.SearchCriteria;
+import com.travix.busyflights.service.FlightsSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

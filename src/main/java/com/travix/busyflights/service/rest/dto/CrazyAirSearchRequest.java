@@ -1,12 +1,8 @@
-package com.travix.flightsearch.service.rest.dto;
+package com.travix.busyflights.service.rest.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.validator.constraints.Length;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.Future;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**

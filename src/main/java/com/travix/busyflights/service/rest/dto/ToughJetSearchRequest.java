@@ -1,11 +1,7 @@
-package com.travix.flightsearch.service.rest.dto;
+package com.travix.busyflights.service.rest.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.Range;
 
-import javax.validation.constraints.NotNull;
 import java.util.Calendar;
 import java.util.Date;
 

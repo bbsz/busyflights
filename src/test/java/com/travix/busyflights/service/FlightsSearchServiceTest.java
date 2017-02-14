@@ -1,7 +1,7 @@
-package com.travix.flightsearch.service;
+package com.travix.busyflights.service;
 
 import com.google.common.collect.Lists;
-import com.travix.flightsearch.domain.Flight;
+import com.travix.busyflights.domain.Flight;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

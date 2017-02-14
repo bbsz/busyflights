@@ -1,8 +1,8 @@
-package com.travix.flightsearch.service;
+package com.travix.busyflights.service;
 
-import com.travix.flightsearch.domain.Flight;
-import com.travix.flightsearch.service.rest.dto.CrazyAirFlightDto;
-import com.travix.flightsearch.service.rest.dto.CrazyAirSearchRequest;
+import com.travix.busyflights.domain.Flight;
+import com.travix.busyflights.service.rest.dto.CrazyAirFlightDto;
+import com.travix.busyflights.service.rest.dto.CrazyAirSearchRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
