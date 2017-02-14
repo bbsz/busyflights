@@ -19,12 +19,12 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("flightsSearch/")
-public class CrazyAirFlightsSearchController {
+public class FlightsSearchController {
 
     private CrazyAirSearchService crazyAirSearch;
 
     @Autowired
-    public CrazyAirFlightsSearchController(CrazyAirSearchService crazyAirSearch) {
+    public FlightsSearchController(CrazyAirSearchService crazyAirSearch) {
         this.crazyAirSearch = crazyAirSearch;
     }
 
