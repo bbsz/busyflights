@@ -10,7 +10,7 @@ public class SearchCriteria {
     private String destination;
     private Date departureDate;
     private Date returnDate;
-    private int passengersCount;
+    private Integer numberOfPassengers;
 
     public String getOrigin() {
         return origin;
@@ -44,11 +44,10 @@ public class SearchCriteria {
         this.returnDate = returnDate;
     }
 
-    public int getPassengersCount() {
-        return passengersCount;
+    public Integer getNumberOfPassengers() {
+        return numberOfPassengers;
     }
-
-    public void setPassengersCount(int passengersCount) {
-        this.passengersCount = passengersCount;
+    public void setNumberOfPassengers(Integer numberOfPassengers) {
+        this.numberOfPassengers = numberOfPassengers;
     }
 }

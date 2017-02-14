@@ -2,59 +2,59 @@ package com.travix.flightsearch.service;
 
 import com.google.common.collect.Lists;
 import com.travix.flightsearch.domain.Flight;
-import com.travix.flightsearch.repository.FlightsRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by sergej on 13.2.2017.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class CrazyAirSearchServiceTest {
+public class FlightsSearchServiceTest {
 
     private static final String ORIGIN = "LDN";
     private static final String DESTINATION = "MLB";
+    private static final String SEARCH_URL_CRAZY_AIR = "localhost:8080/flightsSearch/crayzAir";
+    private static final String SEARCH_URL_TOUGH_JET = "localhost:8080/flightsSearch/toughJet";
 
     @Mock
-    private FlightsRepository repository;
+    private RestTemplate restTemplate;
     @Mock
     private Flight flight_ldn2Mlb;
     @Mock
     private Flight flight_mlb2Ldn;
     private SearchCriteria searchCriteria;
     private List<Flight> flights;
-    private CrazyAirSearchService searchService;
+    private FlightsSearchService searchService;
 
     @Before
     public void setUp() {
-        searchService = new CrazyAirSearchService(repository);
+        searchService = new FlightsSearchService(restTemplate, SEARCH_URL_CRAZY_AIR, SEARCH_URL_TOUGH_JET);
     }
 
     @Test
     public void getFlights() {
-        givenARepository();
+        givenARestTemplate();
         givenASearchCriteria();
         whenICallGetFlights();
         flightsAreReturned();
     }
 
-    private void givenARepository() {
+    private void givenARestTemplate() {
         List<Flight> orig2dest = Lists.newArrayList(flight_ldn2Mlb);
         List<Flight> dest2orig = Lists.newArrayList(flight_mlb2Ldn);
-        when(repository.findCrazyAirFlights(eq(ORIGIN), eq(DESTINATION), any(Date.class), any(Date.class))).thenReturn(orig2dest);
-        when(repository.findCrazyAirFlights(eq(DESTINATION), eq(ORIGIN), any(Date.class), any(Date.class))).thenReturn(dest2orig);
+//        when(restTemplate.findCrazyAirFlights(eq(ORIGIN), eq(DESTINATION), any(Date.class), any(Date.class))).thenReturn(orig2dest);
+//        when(restTemplate.findCrazyAirFlights(eq(DESTINATION), eq(ORIGIN), any(Date.class), any(Date.class))).thenReturn(dest2orig);
     }
 
     private void givenASearchCriteria() {

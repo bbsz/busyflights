@@ -1,10 +1,10 @@
 package com.travix.flightsearch.controller;
 
 import com.google.common.collect.Lists;
-import com.travix.flightsearch.controller.dto.CrazyAirFlightDto;
+import com.travix.flightsearch.service.rest.dto.CrazyAirFlightDto;
 import com.travix.flightsearch.controller.dto.FlightsSearchRequest;
 import com.travix.flightsearch.domain.Flight;
-import com.travix.flightsearch.service.CrazyAirSearchService;
+import com.travix.flightsearch.service.FlightsSearchService;
 import com.travix.flightsearch.service.SearchCriteria;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.util.Date;
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
@@ -25,13 +26,16 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class FlightsSearchControllerTest {
 
+    private static final String SUPPLIER_CRAZY_AIR = "CrazyAir";
+    private static final String SUPPLIER_TOUGH_JET = "ToughJet";
+
     @Mock
-    private CrazyAirSearchService searchService;
+    private FlightsSearchService searchService;
     @Mock
     private FlightsSearchRequest request;
     private FlightsSearchController controller;
     private Flight flight;
-    private List<CrazyAirFlightDto> dtos;
+    private List<Flight> flights;
 
     @Before
     public void setUp() {
@@ -46,23 +50,39 @@ public class FlightsSearchControllerTest {
     }
 
     private void givenASearchService() {
+        flight = getFlight();
         List<Flight> flights = Lists.newArrayList(flight);
         when(searchService.getFlights(any(SearchCriteria.class))).thenReturn(flights);
     }
 
     private void whenICallSearchCrazyAir() {
-        dtos = controller.search(request);
+        flights = controller.search(request);
     }
 
-    private void dtosAreReturned(){
-        assertThat(dtos.size(), is(1));
-        assertFlights(dtos.get(0), flight);
+    private void dtosAreReturned() {
+        assertThat(flights.size(), is(1));
+        assertFlights(flights.get(0), flight);
     }
 
-    private void assertFlights(CrazyAirFlightDto dto, Flight flight) {
-        assertThat(dto.getAirLine(), is(flight.getAirLine()));
-        assertThat(dto.getArrivalDate(), is(flight.getArrivalDate()));
-        assertThat(dto.getDepartureDate(), is(flight.getDepartureDate()));
+    private void assertFlights(Flight returnedFlight, Flight flight) {
+        assertThat(returnedFlight.getAirLine(), is(flight.getAirLine()));
+        assertThat(returnedFlight.getArrivalDate(), is(flight.getArrivalDate()));
+        assertThat(returnedFlight.getDepartureDate(), is(flight.getDepartureDate()));
+        assertThat(returnedFlight.getDepartureAirportCode(), is(flight.getDepartureAirportCode()));
+        assertThat(returnedFlight.getDestinationAirportCode(), is(flight.getDestinationAirportCode()));
+        assertThat(returnedFlight.getSupplier(), is(flight.getSupplier()));
+        assertThat(returnedFlight.getFare(), is(flight.getFare()));
+    }
 
+    private Flight getFlight() {
+        Flight flight = new Flight();
+        flight.setDepartureDate(new Date());
+        flight.setArrivalDate(new Date());
+        flight.setAirLine("WhatEver");
+        flight.setDestinationAirportCode("destination");
+        flight.setDestinationAirportCode("origin");
+        flight.setSupplier(SUPPLIER_CRAZY_AIR);
+        flight.setFare(44d);
+        return flight;
     }
 }

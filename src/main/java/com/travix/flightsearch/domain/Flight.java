@@ -40,7 +40,7 @@ public class Flight implements Serializable {
     private String supplier;
 
     @JsonProperty(value = "fare", required = true)
-    private String fare;
+    private Double fare;
 
     @JsonProperty(value = "departureAirportCode", required = true)
     private String departureAirportCode;
@@ -63,27 +63,55 @@ public class Flight implements Serializable {
         return airLine;
     }
 
+    public void setAirLine(String airLine) {
+        this.airLine = airLine;
+    }
+
     public String getSupplier() {
         return supplier;
     }
 
-    public String getFare() {
+    public void setSupplier(String supplier) {
+        this.supplier = supplier;
+    }
+
+    public Double getFare() {
         return fare;
+    }
+
+    public void setFare(Double fare) {
+        this.fare = fare;
     }
 
     public String getDepartureAirportCode() {
         return departureAirportCode;
     }
 
+    public void setDepartureAirportCode(String departureAirportCode) {
+        this.departureAirportCode = departureAirportCode;
+    }
+
     public String getDestinationAirportCode() {
         return destinationAirportCode;
+    }
+
+    public void setDestinationAirportCode(String destinationAirportCode) {
+        this.destinationAirportCode = destinationAirportCode;
     }
 
     public Date getDepartureDate() {
         return departureDate;
     }
 
+    public void setDepartureDate(Date departureDate) {
+        this.departureDate = departureDate;
+    }
+
     public Date getArrivalDate() {
         return arrivalDate;
+    }
+
+    public void setArrivalDate(Date arrivalDate) {
+        this.arrivalDate = arrivalDate;
     }
 }
